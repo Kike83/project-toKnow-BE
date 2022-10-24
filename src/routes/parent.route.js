@@ -1,17 +1,17 @@
 const express = require("express")
-const {createGroup, getAll, getById, updateGroup, removeGroup} = require("../usecases/group.usecase") 
+const {createParent, getAll, getById, updateParent, removeParent} = require("../usecases/parent.usecase") 
 
 const router = express.Router() 
 
 
 //Post
-router.post("/creategroup", async (request, response) => {
+router.post("/createparent", async (request, response) => {
     
     try {
-      const createdGroup = await createGroup(request.body)
+      const createdParent = await createParent(request.body)
       response.json({
         success: true,
-        data: { createdGroup }
+        data: { createdParent }
       })
     } catch (error) {
       response.status(400)
@@ -28,12 +28,12 @@ router.post("/creategroup", async (request, response) => {
  //Get
 router.get("/", async (request, response) => {
     try{
-        const groups = await getAll(request.body)
+        const parents = await getAll()
 
         response.json({
             success: true,
             data:{
-                groups
+                parents
             }
         })
     }catch(err) {
@@ -51,11 +51,11 @@ router.get("/", async (request, response) => {
 router.get("/:id", async (request, response) =>{
     const { id } = request.params
     try{
-        const group = await getById( id )
+        const parent = await getById( id )
         response.json ({ 
             success: true,
             data:{
-                group
+                parent
             }
         })
     } catch(err){
@@ -70,15 +70,15 @@ router.get("/:id", async (request, response) =>{
 // 
 
 //Update
-router.patch("/group/:id", async (request, response) => {
+router.patch("/parent/:id", async (request, response) => {
   try {
     const { id } = request.params
-    const post = await updateGroup(id, request.body)
+    const parent = await updateParent(id, request.body)
 
     response.json({
       success: true,
       data: {
-        post
+        parent
       }
     })
   } catch (error) {
@@ -91,10 +91,10 @@ router.patch("/group/:id", async (request, response) => {
 })
 
 //Delete
-router.delete("/post/:id", async (request, response) => {
+router.delete("/parent/:id", async (request, response) => {
   try {
     const { id } = request.params
-    const post = await removeGroup(id)
+    const post = await removeParent(id)
 
     response.json({
       success: true,

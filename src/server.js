@@ -1,5 +1,5 @@
 const express = require("express");
-const routerGroup = require("./routes/group.route")
+const routerParent = require("./routes/parent.route")
 
 const app = express();
 
@@ -9,7 +9,8 @@ app.use(express.json())
 
 //Middleware de ruta //la ruta es /group + la ruta en group.route (que dejamos como / )
 //aquí irá cada ruta
-app.use("/group", routerGroup)
+
+app.use("/parent", routerParent)
 
 
 //Endpoint de home
