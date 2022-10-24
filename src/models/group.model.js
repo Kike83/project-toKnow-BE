@@ -23,12 +23,12 @@ const groupSchema = new mongoose.Schema({
     studentId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students',
-        required: true
+        // required: true
     }],
     teacherId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teachers',
-        required: true
+        // required: true
     }]
 }, {
     timestamp: true
