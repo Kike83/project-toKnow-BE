@@ -15,7 +15,7 @@ const groupSchema = new mongoose.Schema({
         required: true
     },
     generationId: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'generations'
     },
     studentId: [{
