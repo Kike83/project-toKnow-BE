@@ -23,17 +23,14 @@ const studentSchema = new mongoose.Schema({
     matricula: {
         type: String,               
         minlength: 3,
-        maxlength: 30,
-        required: true
+        maxlength: 30
     },
     gender: {
         type: String,
-        enum: ["female", "male", "lgbt", "common", "neuter"],
-        required: true
+        enum: ["female", "male", "lgbt", "common", "neuter"]
     },
     dateOfBirth: {
-        type: Number,
-        required: true
+        type: Number
     },
     grade: {
         type: Number,
@@ -41,15 +38,13 @@ const studentSchema = new mongoose.Schema({
         max: 6,
         required: true
     },
-    group: {
-        type: String,
-        enum: ["A", "B", "C", "D", "E", "F"],
-        required: true
+    groupId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'groups'
     },
     parentId: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'parents',
-        required: true
+        ref: 'parents'
     }]
 }, {
     timestamp: true
