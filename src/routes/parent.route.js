@@ -70,7 +70,7 @@ router.get("/:id", async (request, response) =>{
 // 
 
 //Update
-router.patch("/parent/:id", async (request, response) => {
+router.patch("/update/:id", async (request, response) => {
   try {
     const { id } = request.params
     const parent = await updateParent(id, request.body)
@@ -91,7 +91,7 @@ router.patch("/parent/:id", async (request, response) => {
 })
 
 //Delete
-router.delete("/parent/:id", async (request, response) => {
+router.delete("/remove/:id", async (request, response) => {
   try {
     const { id } = request.params
     const post = await removeParent(id)

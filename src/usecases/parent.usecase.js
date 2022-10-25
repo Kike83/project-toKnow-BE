@@ -9,7 +9,7 @@ const createParent = (parentData) => {
   }
 //Get
 const getAll = async() => {
-    console.log("estoy en getALL")
+    // console.log("estoy en getALL")
     const parents = await Parent.find({})
 
     return parents
@@ -17,7 +17,7 @@ const getAll = async() => {
 
 // Get by id
 const getById = async (id) => {
-    console.log("estoy en getById")
+    // console.log("estoy en getById")
     const parent = await Parent.findById(id)
     return parent
 }
