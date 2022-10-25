@@ -3,13 +3,13 @@ const Group = require ("../models/group.model")
 
 //Post
 const createGroup = (groupData) => {
-    console.log = ("create", groupData)
+    // console.log = ("create", groupData)
     const postGroup = Group.create(groupData)
     return postGroup
   }
 //Get
 const getAll = async() => {
-    console.log("estoy en getALL")
+    // console.log("estoy en getALL")
     const groups = await Group.find({})
 
     return groups
@@ -17,7 +17,7 @@ const getAll = async() => {
 
 // Get by id
 const getById = async (id) => {
-    console.log("estoy en getById")
+    // console.log("estoy en getById")
     const group = await Group.findById(id)
     return group
 }
