@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 
 const generationSchema = new mongoose.Schema({
-    year: {
+    name: {
         type: String,
         minlength: 4,
         maxlength: 10,
