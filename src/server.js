@@ -4,6 +4,11 @@ const app = express();
 app.use(express.json())
 
 
+// Middleware - ruta /students
+const routerStudent = require("./routes/student.route")
+app.use("/students", routerStudent)
+
+
 app.get("/", (resquest, response) => {
 
     response.json({
