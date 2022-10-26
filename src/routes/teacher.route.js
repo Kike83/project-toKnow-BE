@@ -1,22 +1,26 @@
+
 const express = require("express")
 const router = express.Router()
 
-const { getAll, getById, create, update, remove } = require("../usecases/student.usecase")
+const { getAll, getById,     create, update, remove } = require("../usecases/teacher.usecase")
 
 
 
-// endpoint 1 - getAll
+// endpoints 1 - getAll
 router.get("/", async (request, response) => {
     try {
-        const students = await getAll();      
+        const teachers = await getAll();      
         response.json({
             success: true,
             data:{
-                students
+                teachers
             }
         })
     } catch (error) {
+        console.log("imprimiendo error", error)
+
         response.status(error.status || 500)
+        
         response.json({
             success: false,
             message: error.message
@@ -24,22 +28,21 @@ router.get("/", async (request, response) => {
     }
 
 })
-
 
 
 // endpoint 2 - getById
 router.get("/:id", async (request, response) => {
     const { id } = request.params
     try{
-        const studentById = await getById(id);
+        const teacherById = await getById(id);
         response.json({
             success: true,
             data:{
-                studentById
+                teacherById
             }
         })
     }catch (error) {    
-        console.log("imprimiendo error que hicimos nosotros", error)
+        console.log("imprimiendo error", error)
         response.status(error.status || 500)
         response.json({
             success: false,
@@ -50,20 +53,29 @@ router.get("/:id", async (request, response) => {
 
 
 
-// endpoint 3 - Post
+
+
+
+
+// endpoint - 3 - Create
 router.post("/", async (request, response) => {
     try{
-        const studentCreated = await create( request.body );
+        const teacherCreated = await create( request.body )
+        
         response.status(201)
+
         response.json({
             success: true,
             data:{
-                studentCreated
+                teacherCreated
             }
         })
+
     }catch (error) {    
-        console.log("imprimiendo error que nosotros hicimos", error)
+        console.log("imprimiendo error", error)
+        
         response.status(error.status || 500)
+        
         response.json({
             success: false,
             message: error.message
@@ -76,15 +88,17 @@ router.post("/", async (request, response) => {
 // endpoint 4 - Patch
 router.patch("/:id", async (request, response) => {
     try {
-        const studentPatched = await update(request.params.id, request.body)
+        const teacherPatched = await update(request.params.id, request.body)
         response.json({
         success: true,
         data: {
-            studentPatched
+            teacherPatched
         }
         })
     
     } catch(error) {
+        console.log("imprimiendo error", error)
+
         response.status(error.status || 404)
         response.json({
         success: false,
@@ -93,18 +107,19 @@ router.patch("/:id", async (request, response) => {
     }
     })
 
-
-
 // endpoint 5 - Delete
 router.delete("/:id", async (request, response) => {
     try {
         await remove(request.params.id)
         response.json({
         success: true,
-        message: "Student deleted"
+        message: "Teacher deleted"
         })
     } catch(error) {
+        console.log("imprimiendo error", error)
+
         response.status(error.status || 400)
+        
         response.json({
         success: false,
         message: error.message
