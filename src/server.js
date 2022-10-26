@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const routerSchool = require("./routes/school.route")
 
 app.use(express.json())
 
@@ -12,6 +13,7 @@ app.use("/students", routerStudent)
 // Middleware - ruta /teachers
 const routerTeacher = require("./routes/teacher.route")
 app.use("/teachers", routerTeacher)
+app.use("/school", routerSchool)
 
 
 

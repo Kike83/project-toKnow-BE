@@ -28,7 +28,7 @@ const schoolSchema = new mongoose.Schema({
     generationId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'generations',
-        required: true,
+       
     }],
 
     // 2nda pantalla de Registro
@@ -41,12 +41,12 @@ const schoolSchema = new mongoose.Schema({
         type: String,
         minlength: 3,
     },
-    email: {
+    emailSchool: {
         type: String,
         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
         unique: true,
     },
-    phone: {
+    phoneSchool: {
         type: Number,
         minlength: 8,
         maxlength: 10,
