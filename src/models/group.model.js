@@ -3,10 +3,9 @@ const mongoose = require("mongoose")
 
 
 const groupSchema = new mongoose.Schema({
-    generation: {
+    name: {
         type: String,
-        minlength: 4,
-        maxlength: 10,
+        enum: ["A", "B", "C", "D", "E", "F"],
         required: true
     },
     grade: {
@@ -15,20 +14,17 @@ const groupSchema = new mongoose.Schema({
         max: 6,
         required: true
     },
-    name: {
-        type: String,
-        enum: ["A", "B", "C", "D", "E", "F"],
-        required: true
+    generationId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'generations'
     },
     studentId: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'students',
-        
+        ref: 'students'
     }],
     teacherId: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'teachers',
-        
+        ref: 'teachers'
     }]
 }, {
     timestamp: true
