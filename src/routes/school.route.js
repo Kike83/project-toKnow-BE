@@ -1,7 +1,7 @@
 const express = require("express")
-const {getAll, getById, createschool, deleteschool, updateschool, deleteSchool} = require ("../usecases/school.usecase")
+const {getAll, getById, create, update, remove} = require ("../usecases/school.usecase.js")
 const router = express.Router()
-// const auth = require("../middlewares/auth.middleware")
+
 
 router.get ("/", async (request, response)=>{
 
@@ -41,7 +41,7 @@ router.get ("/:id", async (request, response)=>{
     }
 })
 
-router.school("/", async (request, response) => {
+router.post("/", async (request, response) => {
     try{
         const school = await create(request.body)
         response.status(201)
@@ -52,7 +52,7 @@ router.school("/", async (request, response) => {
             }
         })
     }catch(error){
-        response.status(error.status || 500)
+        response.status(error.status || 400)
         response.json({
             success : false,
             message: error.message
@@ -63,7 +63,7 @@ router.school("/", async (request, response) => {
 router.delete ("/:id", async (request, response)=>{
     const {id} = request.params
     try{
-        const post = await delete(id)
+        const post = await remove(id)
         response.status(200)
         response.json({
             success:true,
@@ -83,7 +83,7 @@ router.delete ("/:id", async (request, response)=>{
 router.patch ("/:id", async (request, response)=>{
     const {id} = request.params
     try{
-        const school = await updateSchool(id, request.body)
+        const school = await update(id, request.body)
         response.json({
             success: true,
             data:{

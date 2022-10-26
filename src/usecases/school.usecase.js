@@ -1,25 +1,33 @@
-const School = require("../models/school.model")
+const School = require("../models/school.model.js")
 const createError = require ('http-errors')
 
 const getAll = () =>{
     const school = School.find({})
-    return school 
+    return school
 }
 
 const getById = async (id) =>{
-    const school = await School.findById(id)   
-    if(!school)throw error = createError(404, "Escuela no encontrada")
+    const school = await School.findById(id)
+    
+    if(!school){
+        const error = createError(404, "Escuela no encontrada")
+        throw error
+    }
+
     return school
 }
 
-const create = async (data) =>{
-    const school = await School.create(data)
+const create = async (schoolData) =>{
+    const school = await School.create(schoolData)
     return school
 }
 
-const deleteSchool = async (id) => {
+const remove = async (id) => {
     const school = await School.findByIdAndDelete(id)
-    if(!school)throw error = createError(404, "Escuela no encontrada")
+    if (!school){
+        const error = createError(404, "Escuela no encontrada")
+        throw error
+    } 
     return school
 }
 
@@ -28,4 +36,4 @@ const update = async (id,data) =>{
     return school
 }
 
-module.exports= {getAll, getById, create, deleteSchool, update}
+module.exports= {getAll, getById, create, update, remove}
