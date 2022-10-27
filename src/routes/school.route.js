@@ -67,7 +67,7 @@ router.delete ("/:id", async (request, response)=>{
         response.status(200)
         response.json({
             success:true,
-            message: "School was deleted"
+            message: "La Escuela ha sido eliminada"
         })
 
     }catch(error){
@@ -83,9 +83,10 @@ router.delete ("/:id", async (request, response)=>{
 router.patch ("/:id", async (request, response)=>{
     const {id} = request.params
     try{
-        const school = await update(id, request.body)
+        const school = await update(id, request.body)   
         response.json({
             success: true,
+            message: "La Escuela ha sido actualizada",
             data:{
                 school
             }

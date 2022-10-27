@@ -11,12 +11,12 @@ const generationSchema = new mongoose.Schema({
     schoolId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools',
-        required: true
+        
     },
     groupId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups',
-        required: true
+        
     }]
 }, {
     timestamp: true

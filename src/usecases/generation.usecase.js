@@ -24,8 +24,8 @@ const create = async (data) =>{
 
 const remove = async (id) => {
     const generation = await Generations.findByIdAndDelete(id)
-    if (!school){
-        const error = createError(404, "Escuela no encontrada")
+    if (!generation){
+        const error = createError(404, "La generación a sido eliminada")
         throw error
     } 
     return generation

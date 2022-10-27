@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const routerSchool = require("./routes/school.route")
+const routerGeneration = require("./routes/generation.route")
 
 app.use(express.json())
 
@@ -14,6 +15,7 @@ app.use("/students", routerStudent)
 const routerTeacher = require("./routes/teacher.route")
 app.use("/teachers", routerTeacher)
 app.use("/school", routerSchool)
+app.use("/generation", routerGeneration)
 
 
 
