@@ -4,15 +4,26 @@ import {Generation} from '../models/generation.model'
 // const mongoose = require("monngoose")
 
 //Post
-const createGroup = (groupData) => {
-    // console.log = ("create", groupData)
-    const postGroup = Group.create(groupData)
-    return postGroup
+const createGroup = async(newGroup) => {
+    
+    const generationFound = await Generation.findById(newGroup.generationId)
+
+    if(!generationFound) throw new error('no se encontró la generación', 404);
+
+    const groupCreated = await Group.create(newGroup)
+
+    await Generation.updateOne(
+      {_id:generationFound._id},
+      {
+        $push:{ groups: groupCreated._id}
+      }
+    )
+    return groupCreated
   }
 //Get
 const getAll = async() => {
     // console.log("estoy en getALL")
-    const groups = await Group.find({}).populate('generation', 'student','teacher' )
+    const groups = await Group.find({}).populate('generationId', 'studentId','teacherId' )
 
     return groups
 }
