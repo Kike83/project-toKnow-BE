@@ -1,21 +1,20 @@
 const express = require("express");
 const app = express();
+const routerStudent = require("./routes/student.route")
 const routerSchool = require("./routes/school.route")
-const routerGeneration = require("./routes/generation.route")
+const routerUser = require("./routes/user.route")
+const routerTeacher = require("./routes/teacher.route")
 
 app.use(express.json())
 
 
 // Middleware - ruta /students
-const routerStudent = require("./routes/student.route")
+
 app.use("/students", routerStudent)
-
-
-// Middleware - ruta /teachers
-const routerTeacher = require("./routes/teacher.route")
 app.use("/teachers", routerTeacher)
-app.use("/school", routerSchool)
-app.use("/generation", routerGeneration)
+app.use("/schools", routerSchool)
+app.use("/users", routerUser)
+
 
 
 
