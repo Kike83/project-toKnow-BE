@@ -22,23 +22,19 @@ const teacherSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ["female", "male", "lgbt", "common", "neuter"],
-        required: true
+        enum: ["female", "male", "lgbt", "common", "neuter"]
     },
     dateOfBirth: {
-        type: Number,
-        required: true
+        type: Number
     },
     bio: {
         type: String,               
         minlength: 3,
-        maxlength: 30,
-        required: true
+        maxlength: 30
     },
     email: {
         type: String,
-        match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-        unique: true,
+        unique: true
     },
     phone: {
         type: Number,
@@ -49,13 +45,11 @@ const teacherSchema = new mongoose.Schema({
     matricula: {
         type: String,               
         minlength: 3,
-        maxlength: 30,
-        required: true
+        maxlength: 30
     },
     materia: {
         type: String,
-        enum: ["Matemáticas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Educación Física", "Inglés", "Artes"],
-        required: true
+        enum: ["Matemáticas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Educación Física", "Inglés", "Artes"]
     },
     grade: {
         type: Number,
@@ -63,10 +57,9 @@ const teacherSchema = new mongoose.Schema({
         max: 6,
         required: true
     },
-    group: {
-        type: String,
-        enum: ["A", "B", "C", "D", "E", "F"],
-        required: true
+    groupId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'groups'
     },
 }, {
     timestamp: true
