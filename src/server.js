@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const routerSchool = require("./routes/school.route")
+const routerGroup = require("./routes/group.route")
 
+//middleware
 app.use(express.json())
 
 
@@ -15,6 +17,8 @@ const routerTeacher = require("./routes/teacher.route")
 app.use("/teachers", routerTeacher)
 app.use("/school", routerSchool)
 
+//Middleware - ruta /group
+app.use("/group", routerGroup)
 
 
 app.get("/", (resquest, response) => {
