@@ -1,18 +1,26 @@
 const express = require("express");
-const routerGroup = require("./routes/group.route")
-
 const app = express();
+const routerSchool = require("./routes/school.route")
+const routerGroup = require("./routes/group.route")
 
 //middleware
 app.use(express.json())
 
 
-//Middleware de ruta //la ruta es /group + la ruta en group.route (que dejamos como / )
-//aquí irá cada ruta
+// Middleware - ruta /students
+const routerStudent = require("./routes/student.route")
+app.use("/students", routerStudent)
+
+
+// Middleware - ruta /teachers
+const routerTeacher = require("./routes/teacher.route")
+app.use("/teachers", routerTeacher)
+app.use("/school", routerSchool)
+
+//Middleware - ruta /group
 app.use("/group", routerGroup)
 
 
-//Endpoint de home
 app.get("/", (resquest, response) => {
 
     response.json({
