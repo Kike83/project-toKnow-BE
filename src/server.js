@@ -7,8 +7,7 @@ const app = express();
 app.use(express.json())
 
 
-//Middleware de ruta //la ruta es /group + la ruta en group.route (que dejamos como / )
-//aquí irá cada ruta
+//Middleware de ruta
 
 app.use("/parent", routerParent)
 
