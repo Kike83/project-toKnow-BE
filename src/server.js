@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const routerSchool = require("./routes/school.route")
 const routerGroup = require("./routes/group.route")
+const routerParent = require("./routes/parent.route")
 
 //middleware
 app.use(express.json())
@@ -20,6 +21,8 @@ app.use("/school", routerSchool)
 //Middleware - ruta /group
 app.use("/group", routerGroup)
 
+//Middleware - ruta/parent
+app.use("/parent", routerParent)
 
 app.get("/", (resquest, response) => {
 
