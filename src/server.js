@@ -3,8 +3,9 @@ const app = express()
 const routerSchool = require("./routes/school.route")
 const routerGroup = require("./routes/group.route")
 const routerTeacher = require("./routes/teacher.route")
-const routerParent = require("./routes/parent.route")
 const routerStudent = require("./routes/student.route")
+const routerParent = require("./routes/parent.route")
+const routerUser = require("./routes/user.route")
 
 app.use(express.json())
 
@@ -13,6 +14,7 @@ app.use("/group", routerGroup)
 app.use("/teacher", routerTeacher)
 app.use("/student", routerStudent)
 app.use("/parent", routerParent)
+app.use("/user", routerUser)
 
 app.get("/", (resquest, response) => {
     response.json({
