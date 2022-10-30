@@ -6,6 +6,7 @@ const routerTeacher = require("./routes/teacher.route")
 const routerStudent = require("./routes/student.route")
 const routerParent = require("./routes/parent.route")
 const routerUser = require("./routes/user.route")
+const routerAuth = require("./routes/auth.route")
 
 app.use(express.json())
 
@@ -15,6 +16,7 @@ app.use("/teacher", routerTeacher)
 app.use("/student", routerStudent)
 app.use("/parent", routerParent)
 app.use("/user", routerUser)
+app.use("/login", routerAuth)
 
 app.get("/", (resquest, response) => {
     response.json({
