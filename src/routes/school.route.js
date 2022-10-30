@@ -1,6 +1,11 @@
 const express = require("express")
-const {getAll, getById, create, update, remove} = require ("../usecases/school.usecase.js")
 const router = express.Router()
+
+const {getAll, getById, create, update, remove} = require ("../usecases/school.usecase.js")
+
+const authorizationMiddleware = require("../middlewares/auth.middleware")
+router.use(authorizationMiddleware)
+
 
 
 router.get ("/", async (request, response)=>{

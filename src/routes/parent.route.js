@@ -1,7 +1,11 @@
 const express = require("express")
+const router = express.Router() 
+
 const {createParent, getAll, getById, updateParent, removeParent} = require("../usecases/parent.usecase") 
 
-const router = express.Router() 
+const authorizationMiddleware = require("../middlewares/auth.middleware")
+router.use(authorizationMiddleware)
+
 
 
 //Post

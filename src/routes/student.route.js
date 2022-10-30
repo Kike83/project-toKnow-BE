@@ -3,6 +3,9 @@ const router = express.Router()
 
 const { getAll, getById, create, update, remove } = require("../usecases/student.usecase")
 
+const authorizationMiddleware = require("../middlewares/auth.middleware")
+router.use(authorizationMiddleware)
+
 
 
 // endpoint 1 - getAll
