@@ -38,10 +38,26 @@ const create = async (userData) => {
 
 
 
+// usecase 4 - LogIn
+
+const login = async (email, originalPassword) => {
+    const user = await User.findOne({ email })
+    if(!user) throw createError(400, "Datos incorrectos")
+    
+    const validPassword = await bcrypt.compare(originalPassword, user.password)
+    if(!validPassword) throw createError(400, "Invalid data")
+    
+    return user;
+} 
 
 
 
-module.exports = { getAll, getById, create }
+
+
+
+
+
+module.exports = { getAll, getById, create, login }
 
 
 
