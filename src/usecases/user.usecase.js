@@ -5,6 +5,9 @@ const createError = require('http-errors')
 
 const bcrypt = require("bcrypt")
 
+const jwt = require("../lib/jwt.lib")
+
+
 
 
 // Usecase 1 - GetAll
@@ -47,17 +50,11 @@ const login = async (email, originalPassword) => {
     const validPassword = await bcrypt.compare(originalPassword, user.password)
     if(!validPassword) throw createError(400, "Invalid data")
     
-    return user;
+    const token = jwt.sign({ id: user._id })
+    console.log("se hizo el token", token)
+    return token;
 } 
 
 
 
-
-
-
-
-
 module.exports = { getAll, getById, create, login }
-
-
-

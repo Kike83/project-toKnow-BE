@@ -1,4 +1,3 @@
-
 const express = require("express")
 const router = express.Router()
 
@@ -6,20 +5,16 @@ const { getAll, getById, create } = require("../usecases/user.usecase")
 
 
 
-
 // endpoint 1 - getAll
 router.get("/", async (request, response) => {
-    
     try{
         const users = await getAll()
-    
         response.json({
             succes: true,
             data: {
                 users
             }
         })
-
     }catch(error) {
         response.status(error.status || 500)
         response.json({
@@ -27,7 +22,6 @@ router.get("/", async (request, response) => {
             message: error.message
         })
     }
-    
 })
 
 

@@ -10,14 +10,12 @@ router.post("/", async (request, response) => {
     const { email, password } = request.body
 
     try{    
-        const user = await login(email, password) 
+        const token = await login(email, password) 
 
         response.json({
             success: true,
             message: "Se inició sesión correctamente",
-            data: {
-                user
-            }
+            token
         })
 
     }catch(error){
