@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const cors = require("cors")
 const routerSchool = require("./routes/school.route")
 const routerGroup = require("./routes/group.route")
 const routerTeacher = require("./routes/teacher.route")
@@ -8,6 +9,7 @@ const routerParent = require("./routes/parent.route")
 const routerUser = require("./routes/user.route")
 const routerAuth = require("./routes/auth.route")
 
+app.use(cors())
 app.use(express.json())
 
 app.use("/school", routerSchool)
