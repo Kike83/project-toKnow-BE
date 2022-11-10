@@ -1,75 +1,34 @@
 const mongoose = require("mongoose")
 
 const schoolSchema = new mongoose.Schema({
-    nameResponsable: {
-        type: String,                  
-        minlength: 3,
-        maxlength: 30,
-        required: true
-    },
-    // email -> pendiente regex validar .edu
-    email: {
-        type: String,
-        match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-        unique: true,
-        required: true
-    },
-    phone: {
-        type: Number,
-        minlength: 8,
-        maxlength: 10,
-        required: true
-    },
-    password: {
-        type: String,
-        minlength: 3,
-        required: true
-    },
-    generationId: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'generations',
-       
-    }],
-
-    // 2nda pantalla de Registro
-        // no llevan require
     nameSchool: {
-        type: String,
-        minlength: 5,
+        type: String
     },
     cct: {
-        type: String,
-        minlength: 3,
+        type: String
     },
     emailSchool: {
         type: String,
         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-        unique: true,
+        unique: true
     },
     phoneSchool: {
-        type: Number,
-        minlength: 8,
-        maxlength: 10,
+        type: Number
     },
     addressStreet: {
-        type: String,
-        minlength: 3,
+        type: String
     },
     addressNumber: {
-        type: Number,
-        minlength: 1,
+        type: Number
     },
     postalCode: {
-        type: Number,
-        minlength: 2,
+        type: Number
     },
     city: {
-        type: String,
-        minlength: 2
+        type: String
     },
     state: {
-        type: String,
-        minlength: 2
+        type: String
     }
 }, {
     timestamp: true
