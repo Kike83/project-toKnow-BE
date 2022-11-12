@@ -4,6 +4,7 @@ const router = express.Router()
 const { getAll, getById, update, create, remove } = require("../usecases/group.usecase") 
 
 const authorizationMiddleware = require("../middlewares/auth.middleware")
+router.use(authorizationMiddleware)
 
 
 
