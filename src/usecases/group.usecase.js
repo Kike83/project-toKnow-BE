@@ -7,9 +7,8 @@ const createError = require('http-errors')
 const getAll = async() => {
   console.log("imprimiendo desde group, usecase dentro de getAll")
   
-  const groups = await Group.find({}).
-  populate('schoolId', 'studentId','teacherId')
-
+  const groups = await Group.find({})
+  
   return groups
 }
 
@@ -19,7 +18,7 @@ const getAll = async() => {
 const getById = async (id) => {
   console.log("imprimiendo desde group, usecase dentro de getById")
   
-  const groupById = await Group.findById(id).populate('schoolId', 'studentId','teacherId')
+  const groupById = await Group.findById(id)
   
   if(!groupById) {
     const error = createError(404, "El grupo no fue encontrado")
