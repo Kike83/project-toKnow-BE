@@ -16,7 +16,7 @@ const groupSchema = new mongoose.Schema({
     },
     year: {
         type: String,
-        enum: ["2002-2003", "2003-2004"],
+        enum: ["2022-2023", "2023-2024"],
         required: true
     },
     schoolId: [{
