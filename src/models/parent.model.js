@@ -4,15 +4,21 @@ const mongoose = require("mongoose")
 const parentSchema = new mongoose.Schema({
     name: {
         type: String,               
-        minlength: 3,
-        maxlength: 30,
+        minlength: 2,
+        maxlength: 20,
         required: true
     },
     lastNameA: {
-        type: String
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true
     },
     lastNameB: {
-        type: String               
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true             
     },
     email: {
         type: String,
@@ -22,9 +28,10 @@ const parentSchema = new mongoose.Schema({
     phone: {
         type: Number
     },
-    gender: {
-        type: String
-    }
+    studentId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'students'
+    }]
 }, {
     timestamp: true
 })
