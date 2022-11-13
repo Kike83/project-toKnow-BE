@@ -9,32 +9,21 @@ const parentSchema = new mongoose.Schema({
         required: true
     },
     lastNameA: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String
     },
     lastNameB: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String               
     },
     email: {
         type: String,
         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-        unique: true,
+        unique: true
     },
     phone: {
-        type: Number,
-        minlength: 8,
-        maxlength: 16,
-        required: true
+        type: Number
     },
     gender: {
-        type: String,
-        enum: ["female", "male", "lgbt", "common", "neuter"],
-        required: true
+        type: String
     }
 }, {
     timestamp: true
