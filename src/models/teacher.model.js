@@ -3,64 +3,48 @@ const mongoose = require("mongoose")
 
 const teacherSchema = new mongoose.Schema({
     name: {
-        type: String,               
+        type: String,
         minlength: 3,
         maxlength: 30,
         required: true
     },
     lastNameA: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String               
     },
     lastNameB: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String
     },
     gender: {
-        type: String,
-        enum: ["female", "male", "lgbt", "common", "neuter"]
+        type: String
     },
     dateOfBirth: {
         type: Number
     },
     bio: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30
+        type: String               
     },
     email: {
         type: String,
+        match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
         unique: true
     },
     phone: {
-        type: Number,
-        minlength: 8,
-        maxlength: 16,
-        required: true
+        type: Number
     },
     matricula: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30
+        type: String               
     },
-    materia: {
+    tipoProfesor: {
         type: String,
-        enum: ["Matemáticas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Educación Física", "Inglés", "Artes"]
+        enum: ["Matematicas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Educacion Fisica", "Ingles", "Artes"]
     },
     grade: {
-        type: Number,
-        min: 1,
-        max: 6,
-        required: true
+        type: Number
     },
-    groupId: {
+    groupId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
-    },
+    }],
 }, {
     timestamp: true
 })
