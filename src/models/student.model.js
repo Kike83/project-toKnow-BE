@@ -4,32 +4,38 @@ const mongoose = require("mongoose")
 const studentSchema = new mongoose.Schema({
     name: {
         type: String, 
-        minlength: 3,
-        maxlength: 30,
+        minlength: 2,
+        maxlength: 20,
         required: true
     },
     lastNameA: {
-        type: String
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true
     },
     lastNameB: {
-        type: String
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true
     },
     matricula: {
-        type: String
-    },
-    gender: {
         type: String
     },
     dateOfBirth: {
         type: Number
     },
     grade: {
-        type: Number
+        type: Number,
+        min: 1,
+        max: 6,
+        required: true
     },
-    groupId: {
+    groupId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
-    },
+    }],
     parentId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'parents'
