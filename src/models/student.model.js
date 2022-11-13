@@ -9,34 +9,22 @@ const studentSchema = new mongoose.Schema({
         required: true
     },
     lastNameA: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String
     },
     lastNameB: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String
     },
     matricula: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30
+        type: String
     },
     gender: {
-        type: String,
-        enum: ["female", "male", "lgbt", "common", "neuter"]
+        type: String
     },
     dateOfBirth: {
         type: Number
     },
     grade: {
-        type: Number,
-        min: 1,
-        max: 6,
-        required: true
+        type: Number
     },
     groupId: {
         type: mongoose.Schema.Types.ObjectId,
