@@ -1,38 +1,11 @@
-
-const User = require("../models/user.model")
-
+const User = require("../models/user.model");
 const createError = require('http-errors')
 
-const bcrypt = require("bcrypt")
-
+const bcrypt = require("bcrypt");
 const jwt = require("../lib/jwt.lib")
 
 
-
-
-// Usecase 1 - GetAll
-const getAll = () => {
-    console.log("imprimiendo desde user.usecase dentro de getAll")
-    const users = User.find({})
-    return users
-}
-
-
-
-// Usecase 2 - GetById
-const getById = async (id) => {
-    console.log("imprimiendo desde user.usecase dentro de getByID")
-    const userById = await Teacher.findById( id )
-    if(!userById) {
-        const error = createError(404, "El user no fue encontrado")
-        throw error
-    }
-    return userById
-}
-
-
-
-// usecase 3 - Create para SignUp
+// usecase 1 - Create para SignUp
 const create = async (userData) => {
     const hash = await bcrypt.hash(userData.password, 10)
     userData.password = hash
@@ -41,7 +14,7 @@ const create = async (userData) => {
 
 
 
-// usecase 4 - LogIn
+// usecase 2 - LogIn
 
 const login = async (email, originalPassword) => {
     const user = await User.findOne({ email })
@@ -57,4 +30,4 @@ const login = async (email, originalPassword) => {
 
 
 
-module.exports = { getAll, getById, create, login }
+module.exports = { create, login }
