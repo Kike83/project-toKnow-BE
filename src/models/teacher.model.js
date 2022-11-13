@@ -4,24 +4,27 @@ const mongoose = require("mongoose")
 const teacherSchema = new mongoose.Schema({
     name: {
         type: String,
-        minlength: 3,
-        maxlength: 30,
+        minlength: 2,
+        maxlength: 20,
         required: true
     },
     lastNameA: {
-        type: String               
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true
     },
     lastNameB: {
-        type: String
-    },
-    gender: {
-        type: String
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true
     },
     dateOfBirth: {
         type: Number
     },
     bio: {
-        type: String               
+        type: String           
     },
     email: {
         type: String,
@@ -32,14 +35,17 @@ const teacherSchema = new mongoose.Schema({
         type: Number
     },
     matricula: {
-        type: String               
+        type: String         
     },
     tipoProfesor: {
         type: String,
-        enum: ["Matematicas", "Español", "Ciencias Naturales", "Ciencias Sociales", "Educacion Fisica", "Ingles", "Artes"]
+        enum: ["titular", "educacion fisica", "ingles"]
     },
     grade: {
-        type: Number
+        type: Number,
+        min: 1,
+        max: 6,
+        required: true
     },
     groupId: [{
         type: mongoose.Schema.Types.ObjectId,
