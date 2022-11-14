@@ -4,38 +4,34 @@ const mongoose = require("mongoose")
 const parentSchema = new mongoose.Schema({
     name: {
         type: String,               
-        minlength: 3,
-        maxlength: 30,
+        minlength: 2,
+        maxlength: 20,
         required: true
     },
     lastNameA: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
+        type: String,
+        minlength: 2,
+        maxlength: 20,
         required: true
     },
     lastNameB: {
-        type: String,               
-        minlength: 3,
-        maxlength: 30,
-        required: true
+        type: String,
+        minlength: 2,
+        maxlength: 20,
+        required: true             
     },
     email: {
         type: String,
         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
-        unique: true,
+        unique: true
     },
     phone: {
-        type: Number,
-        minlength: 8,
-        maxlength: 16,
-        required: true
+        type: Number
     },
-    gender: {
-        type: String,
-        enum: ["female", "male", "lgbt", "common", "neuter"],
-        required: true
-    }
+    studentId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'students'
+    }]
 }, {
     timestamp: true
 })

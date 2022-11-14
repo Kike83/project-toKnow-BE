@@ -1,92 +1,72 @@
 const express = require("express")
 const router = express.Router() 
 
-const {createParent, getAll, getById, updateParent, removeParent} = require("../usecases/parent.usecase") 
+const { getAll, getById, create, update, remove} = require("../usecases/parent.usecase") 
 
 const authorizationMiddleware = require("../middlewares/auth.middleware")
 router.use(authorizationMiddleware)
 
 
 
-//Post
-router.post("/createparent", async (request, response) => {
-    
-    try {
-      const createdParent = await createParent(request.body)
-      response.json({
-        success: true,
-        data: { createdParent }
-      })
-    } catch (error) {
-      response.status(400)
-      response.json({
-        success: false,
-        message: error.message
-      })
-    }
-  })
-
-
-// ruta es /group (por lo que especificamos en el middleware de server)
- // sólo le sumamos la "/" (opcional al escribir la ruta en insomnia)
- //Get
+// endpoint 1 - getAll
 router.get("/", async (request, response) => {
     try{
         const parents = await getAll()
-
         response.json({
             success: true,
             data:{
                 parents
             }
         })
-    }catch(err) {
-            response.status(400)
-            response.json({
-                success: false,
-                message: err.message
-            })
-        
+    }catch(error) {
+      console.log("imprimiendo error", error)
+      response.status(error.status || 500)
+      response.json({
+          success: false,
+          message: error.message
+      })
     }
 })
 
-//GetById
-// ruta groups/:id
+
+
+// endpoint 2 - getById
 router.get("/:id", async (request, response) =>{
-    const { id } = request.params
-    try{
-        const parent = await getById( id )
-        response.json ({ 
-            success: true,
-            data:{
-                parent
-            }
-        })
-    } catch(err){
-        response.status(404)
-        response.json({
-            success:false,
-            message: err.message
-        })
-    }
+  const { id } = request.params
+  try{
+    const parentById = await getById(id)
+    response.json ({ 
+        success: true,
+        data:{
+            parentById
+        }
+    })
+  } catch(error){
+  console.log("imprimiendo error", error)
+  response.status(error.status || 500)
+    response.json({
+        success:false,
+        message: error.message
+    })
+  }
 })
 
-// 
 
-//Update
-router.patch("/update/:id", async (request, response) => {
+
+// endpoint 3 - Post
+router.post("/", async (request, response) => {
   try {
-    const { id } = request.params
-    const parent = await updateParent(id, request.body)
-
+    const parentCreated = await create(request.body)
+    response.status(201)
     response.json({
       success: true,
-      data: {
-        parent
+      data: { 
+        parentCreated
       }
     })
   } catch (error) {
-    response.status(400)
+    console.log("imprimiendo error", error)
+    response.status(error.status || 500)
     response.json({
       success: false,
       message: error.message
@@ -94,20 +74,43 @@ router.patch("/update/:id", async (request, response) => {
   }
 })
 
-//Delete
-router.delete("/remove/:id", async (request, response) => {
-  try {
-    const { id } = request.params
-    const post = await removeParent(id)
 
+
+// endpoint 4 - Update
+router.patch("/:id", async (request, response) => {
+  try {
+    const parentPatched = await update(request.params.id, request.body)
     response.json({
       success: true,
       data: {
-        post
+        parentPatched
       }
     })
   } catch (error) {
-    response.status(400)
+    console.log("imprimiendo error", error)
+    response.status(error.status || 404)
+    response.json({
+      success: false,
+      message: error.message
+    })
+  }
+})
+
+
+
+// endpoint 5 - Delete
+router.delete("/:id", async (request, response) => {
+  try {
+    await remove(request.params.id)
+    response.json({
+      success: true,
+      data: {
+        message: "El Padre/Tutor fue removido exitosamente"
+      }
+    })
+  } catch (error) {
+    console.log("imprimiendo error", error)
+    response.status(error.status || 400)
     response.json({
       success: false,
       message: error.message

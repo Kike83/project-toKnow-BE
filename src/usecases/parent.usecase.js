@@ -1,39 +1,57 @@
 const Parent = require ("../models/parent.model")
-// const mongoose = require("monngoose")
+const createError = require('http-errors')
 
-//Post
-const createParent = (parentData) => {
-    console.log = ("create Parent", parentData)
-    const postParent = Parent.create(parentData)
-    return postParent
-  }
-//Get
+
+  
+// Usecase 1 - GetAll
 const getAll = async() => {
-    // console.log("estoy en getALL")
+    console.log("imprimiendo desde parent.usecase dentro de getAll")
     const parents = await Parent.find({})
-
     return parents
 }
 
-// Get by id
+
+
+// Usecase 2 - GetById
 const getById = async (id) => {
-    // console.log("estoy en getById")
-    const parent = await Parent.findById(id)
-    return parent
+  console.log("imrpimiendo desde parent.usecase dentro de getById")
+  const parentById = await Parent.findById(id)
+  if(!parentById) {
+    const error = createError(404, "El padre/tutor no fue encontrado")
+    throw error
+  }
+  return parentById
 }
 
-//Update
-const updateParent = (id, parentData) => {
-    return (parent = Parent.findByIdAndUpdate(id, parentData))
+
+
+// Usecase 3 - Post
+const create = async (parentData) => {
+  console.log("imprimiendo desde parent.usecase dentro de Post")
+  const parentToCreate = await Parent.create(parentData)
+  return parentToCreate
+}
+
+
+
+// Usecase 4 - Update
+const update = (id, parentData) => {
+  console.log("imprimiendo desde parent.usecase dentro de Update")
+  const parentToPatch = Parent.findByIdAndUpdate(id, parentData, { returnDocument: 'after'})
+  return parentToPatch
   }
-  
-// Delete
-const removeParent = (id) => {
-    return (parent = Parent.findByIdAndDelete(id))
+
+
+
+// Usecase 5 - Delete
+const remove = (id) => {
+    console.log("imprimiendo desde parent.usecase dentro de Delete")
+    const parentToDelete = Parent.findByIdAndDelete(id)
+    return parentToDelete
   }
 
 
 
 
 
-module.exports = {createParent, getAll, getById, updateParent, removeParent}
+module.exports = { getAll, getById, create, update, remove }
