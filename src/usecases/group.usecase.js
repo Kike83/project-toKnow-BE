@@ -4,12 +4,20 @@ const createError = require('http-errors')
 
 
 // Usecase 1 - GetAll
-const getAll = async() => {
-  console.log("imprimiendo desde group, usecase dentro de getAll")
+// const getAll = async() => {
+//   console.log("imprimiendo desde group, usecase dentro de getAll")
   
-  const groups = await Group.find({})
+//   const groups = await Group.find({})
   
-  return groups
+//   return groups
+// }
+
+
+// con populate
+function getAll() {
+  console.log("imprimiendo desde group, usecase dentro de getAll-populate")
+
+  return Group.find({}).populate('school')
 }
 
 

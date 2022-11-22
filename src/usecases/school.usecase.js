@@ -1,10 +1,21 @@
 const School = require("../models/school.model.js")
 const createError = require ('http-errors')
 
+// const getAll = () =>{
+//     const school = School.find({})
+//     return school
+// }
+
+
+// con populate
 const getAll = () =>{
-    const school = School.find({})
+    console.log("imprimiendo desde school, usecase de getAll-populate")
+    
+    const school = School.find().populate('groups')
     return school
 }
+
+
 
 const getById = async (id) =>{
     const school = await School.findById(id)
