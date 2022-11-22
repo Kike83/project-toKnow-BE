@@ -29,7 +29,11 @@ const schoolSchema = new mongoose.Schema({
     },
     state: {
         type: String
-    }
+    },
+    groups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'groups'
+    }]
 }, {
     timestamp: true
 })
