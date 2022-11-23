@@ -1,4 +1,5 @@
 const Group = require ("../models/group.model")
+const School = require ("../models/school.model")
 const createError = require('http-errors')
 
 
@@ -39,6 +40,7 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
+/*
 const create = async(newGroup) => {
     console.log("imprimiendo desde group, usecase dentro de Post")
 
@@ -46,6 +48,29 @@ const create = async(newGroup) => {
 
     return groupToCreate
   }
+*/
+
+// con poppulate
+const create = async(newGroup) => {
+  console.log("imprimiendo desde group, usecase dentro de Post")
+
+  const schoolFound = await School.findById(newGroup.school)
+
+  if(!schoolFound) {
+    const error = createError(404, "La escuela no fue encontrada")
+    throw error
+  }
+
+  const groupToCreate = await Group.create(newGroup)
+
+  await School.updateOne(
+    {_id: schoolFound._id},
+    {
+        $push: { groups: groupToCreate._id}
+    }
+  )
+  return groupToCreate
+}
 
 
 
