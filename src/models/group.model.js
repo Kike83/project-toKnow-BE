@@ -23,7 +23,7 @@ const groupSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
     },
-    studentId: [{
+    students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
     }],

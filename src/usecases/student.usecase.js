@@ -1,13 +1,15 @@
 const Student = require("../models/student.model")
+const Group = require("../models/group.model")
 const createError = require('http-errors')
 
 
 
 // Usecase 1 - Get
-const getAll = () => {
-    console.log("imprimiendo desde student.usecase dentro de getAll")
-    const students = Student.find({})
-    return students
+// con populate
+function getAll() {
+    console.log("imprimiendo desde student, usecase dentro de getAll")
+
+    return Student.find({}).populate('groups')
 }
 
 

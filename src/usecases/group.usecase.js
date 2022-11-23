@@ -17,7 +17,7 @@ const createError = require('http-errors')
 function getAll() {
   console.log("imprimiendo desde group, usecase dentro de getAll-populate")
 
-  return Group.find({}).populate('school')
+  return Group.find({}).populate('school').populate('students')
 }
 
 
