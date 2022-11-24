@@ -1,15 +1,16 @@
 const Teacher = require("../models/teacher.model")
+const Group = require("../models/group.model")
 const createError = require('http-errors')
 
-const { findByIdAndUpdate } = require("../models/teacher.model")
 
 
 
-// Usecase 1 - GetAll
-const getAll = () => {
+// Usecase 1 - getAll
+// con populate
+function getAll() {
     console.log("imprimiendo desde teacher.usecase dentro de getAll")
-    const teachers = Teacher.find({})
-    return teachers
+    
+    return Teacher.find({}).populate('groups')
 }
 
 
@@ -28,13 +29,37 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
+/*
 const create = async (teacherData) => {
     console.log("imprimiendo desde teacher.usecase dentro de Post")
     const teacherToCreate = await Teacher.create( teacherData )
     return teacherToCreate
 }
-    
+*/
 
+
+//con populate
+const create = async(newTeacher) => {
+    console.log("imprimiendo desde teacher, usecase dentro de Post-populate")
+  
+    const groupFound = await Group.findById(newTeacher.groups)
+  
+    if(!groupFound) {
+      const error = createError(404, "El grupo no fue encontrado")
+      throw error
+    }
+  
+    const teacherToCreate = await Teacher.create(newTeacher)
+  
+    await Group.updateOne(
+      {_id: groupFound._id},
+      {
+          $push: { teachers: teacherToCreate._id}
+      }
+    )
+    return teacherToCreate
+  }
+  
  
 
 
