@@ -27,7 +27,7 @@ const groupSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
     }],
-    teacherId: [{
+    teachers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teachers'
     }]
