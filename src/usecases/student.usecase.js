@@ -28,11 +28,39 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
+/*
 const create = async (studentData) => {
     console.log("imprimiendo desde student.usecase dentro del Post")
     const studentToCreate = await Student.create( studentData )
     return studentToCreate
 }
+*/
+
+
+//con populate
+const create = async(newStudent) => {
+    console.log("imprimiendo desde student, usecase dentro de Post-populate")
+  
+    const groupFound = await Group.findById(newStudent.groups)
+  
+    if(!groupFound) {
+      const error = createError(404, "El grupo no fue encontrado")
+      throw error
+    }
+  
+    const studentToCreate = await Student.create(newStudent)
+  
+    await Group.updateOne(
+      {_id: groupFound._id},
+      {
+          $push: { students: studentToCreate._id}
+      }
+    )
+    return studentToCreate
+  }
+  
+
+
 
 
 
