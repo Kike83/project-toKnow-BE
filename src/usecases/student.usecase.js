@@ -9,7 +9,7 @@ const createError = require('http-errors')
 function getAll() {
     console.log("imprimiendo desde student, usecase dentro de getAll")
 
-    return Student.find({}).populate('groups')
+    return Student.find({}).populate('groups').populate('parents')
 }
 
 
