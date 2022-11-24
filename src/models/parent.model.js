@@ -28,7 +28,7 @@ const parentSchema = new mongoose.Schema({
     phone: {
         type: Number
     },
-    studentId: [{
+    students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
     }]
