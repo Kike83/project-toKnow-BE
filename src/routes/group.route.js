@@ -1,15 +1,21 @@
 const express = require("express")
 const router = express.Router() 
 
+const access = require("../middlewares/userRoles.middleware")
+const auth = require("../middlewares/auth.middleware")
+
 const { getAll, getById, update, create, remove } = require("../usecases/group.usecase") 
 
-const authorizationMiddleware = require("../middlewares/auth.middleware")
-router.use(authorizationMiddleware)
+router.use(auth)
+
+
+// const authorizationMiddleware = require("../middlewares/auth.middleware")
+// router.use(authorizationMiddleware)
 
 
 
 // endpoint 1 - getAll
-router.get("/", async (request, response) => {
+router.get("/", access('admin'), async (request, response) => {
   try{
     const groups = await getAll();
     response.json({
@@ -33,7 +39,7 @@ router.get("/", async (request, response) => {
 
 
 // endpoint 2 - getById
-router.get("/:id", async (request, response) =>{
+router.get("/:id", access('admin'), async (request, response) =>{
   const { id } = request.params
   try{
     const groupById = await getById(id)
@@ -59,7 +65,7 @@ router.get("/:id", async (request, response) =>{
 
 
 // endpoint 3 - Post
-router.post("/", async (request, response) => {
+router.post("/", access('admin'), async (request, response) => {
   try {
     const groupCreated = await create(request.body)
     
@@ -87,7 +93,7 @@ router.post("/", async (request, response) => {
 
 
 // endpoint 4 - Update
-router.patch("/:id", async (request, response) => {
+router.patch("/:id", access('admin'), async (request, response) => {
   try {
     const groupPatched = await update(request.params.id, request.body)
 
@@ -112,7 +118,7 @@ router.patch("/:id", async (request, response) => {
 
 
 // endpoint 5 - Delete
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", access('admin'), async (request, response) => {
   try {
     await remove(request.params.id)
 

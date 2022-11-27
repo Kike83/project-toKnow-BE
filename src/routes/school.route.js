@@ -1,14 +1,15 @@
 const express = require("express")
 const router = express.Router()
+const access = require("../middlewares/userRoles.middleware")
+const auth = require("../middlewares/auth.middleware")
 
 const {getAll, getById, create, update, remove} = require ("../usecases/school.usecase.js")
 
-const authorizationMiddleware = require("../middlewares/auth.middleware")
-router.use(authorizationMiddleware)
+router.use(auth)
 
 
 
-router.get ("/", async (request, response)=>{
+router.get ("/", access('admin'), async (request, response)=>{
     try{
         const schools = await getAll()
         response.json({
@@ -26,7 +27,7 @@ router.get ("/", async (request, response)=>{
     }
 })
 
-router.get ("/:id", async (request, response)=>{
+router.get ("/:id", access('admin'), async (request, response)=>{
     const {id} = request.params
     try{
         const school = await getById(id)
@@ -45,7 +46,7 @@ router.get ("/:id", async (request, response)=>{
     }
 })
 
-router.post("/", async (request, response) => {
+router.post("/", access('admin'), async (request, response) => {
     try{
         const school = await create(request.body)
         console.log(request.body)
@@ -65,7 +66,7 @@ router.post("/", async (request, response) => {
     }
 })
 
-router.delete ("/:id", async (request, response)=>{
+router.delete ("/:id", access('admin'), async (request, response)=>{
     const {id} = request.params
     try{
         const post = await remove(id)
@@ -81,11 +82,10 @@ router.delete ("/:id", async (request, response)=>{
             success : false,
             message: error.message
         })
-
     }
 })
 
-router.patch ("/:id", async (request, response)=>{
+router.patch ("/:id", access('admin'), async (request, response)=>{
     const {id} = request.params
     try{
         const school = await update(id, request.body)
@@ -103,8 +103,6 @@ router.patch ("/:id", async (request, response)=>{
             message: error.message
         })
     }
-
-
 })
 
 module.exports = router
