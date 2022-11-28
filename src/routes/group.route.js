@@ -9,13 +9,9 @@ const { getAll, getById, update, create, remove } = require("../usecases/group.u
 router.use(auth)
 
 
-// const authorizationMiddleware = require("../middlewares/auth.middleware")
-// router.use(authorizationMiddleware)
-
-
 
 // endpoint 1 - getAll
-router.get("/", access('admin'), async (request, response) => {
+router.get("/", access('admin', 'teacher'), async (request, response) => {
   try{
     const groups = await getAll();
     response.json({
@@ -39,7 +35,7 @@ router.get("/", access('admin'), async (request, response) => {
 
 
 // endpoint 2 - getById
-router.get("/:id", access('admin'), async (request, response) =>{
+router.get("/:id", access('admin', 'teacher'), async (request, response) =>{
   const { id } = request.params
   try{
     const groupById = await getById(id)

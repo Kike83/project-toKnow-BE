@@ -1,15 +1,17 @@
 const express = require("express")
 const router = express.Router()
 
+const access = require("../middlewares/userRoles.middleware")
+const auth = require("../middlewares/auth.middleware")
+
 const { getAll, getById, create, update, remove } = require("../usecases/student.usecase")
 
-const authorizationMiddleware = require("../middlewares/auth.middleware")
-router.use(authorizationMiddleware)
+router.use(auth)
 
 
 
 // endpoint 1 - getAll
-router.get("/", async (request, response) => {
+router.get("/", access('admin', 'teacher', 'parent'), async (request, response) => {
     try {
         const students = await getAll();      
         response.json({
@@ -31,7 +33,7 @@ router.get("/", async (request, response) => {
 
 
 // endpoint 2 - getById
-router.get("/:id", async (request, response) => {
+router.get("/:id", access('admin', 'teacher', 'parent'), async (request, response) => {
     const { id } = request.params
     try{
         const studentById = await getById(id);
@@ -54,7 +56,7 @@ router.get("/:id", async (request, response) => {
 
 
 // endpoint 3 - Post
-router.post("/", async (request, response) => {
+router.post("/", access('admin'), async (request, response) => {
     try{
         const studentCreated = await create( request.body );
         response.status(201)
@@ -77,7 +79,7 @@ router.post("/", async (request, response) => {
 
 
 // endpoint 4 - Patch
-router.patch("/:id", async (request, response) => {
+router.patch("/:id", access('admin'), async (request, response) => {
     try {
         const studentPatched = await update(request.params.id, request.body)
         response.json({
@@ -99,7 +101,7 @@ router.patch("/:id", async (request, response) => {
 
 
 // endpoint 5 - Delete
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", access('admin'), async (request, response) => {
     try {
         await remove(request.params.id)
         response.json({
