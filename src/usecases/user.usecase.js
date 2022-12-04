@@ -14,4 +14,14 @@ const create = async (userData) => {
 }
 
 
-module.exports = { create }
+// Usecase 2 - getAll 
+// con populate
+function getAll() {
+    console.log("imprimiendo desde user, usecase dentro de getAll-populate")
+  
+    return User.find({}).populate('school')
+  }
+
+
+
+module.exports = { create, getAll }

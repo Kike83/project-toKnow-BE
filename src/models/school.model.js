@@ -30,6 +30,10 @@ const schoolSchema = new mongoose.Schema({
     state: {
         type: String
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
