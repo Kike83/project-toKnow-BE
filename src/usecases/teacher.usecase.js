@@ -18,7 +18,8 @@ function getAll() {
 // Usecase 2 - GetById
 const getById = async (id) => {
     console.log("imprimiendo desde teacher.usecase dentro de getByID")
-    const teacherById = await Teacher.findById( id )
+    const teacherById = await Teacher.findById( id ).populate('groups')
+    
     if(!teacherById) {
         const error = createError(404, "El teacher no fue encontrado")
         throw error
