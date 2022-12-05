@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['admin', 'teacher', 'parent'],
         default: ['teacher']
+    },
+    school: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'schools'
     }
 })
 
