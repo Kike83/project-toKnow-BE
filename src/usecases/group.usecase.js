@@ -1,15 +1,24 @@
 const Group = require ("../models/group.model")
+const School = require ("../models/school.model")
 const createError = require('http-errors')
 
 
 
 // Usecase 1 - GetAll
-const getAll = async() => {
-  console.log("imprimiendo desde group, usecase dentro de getAll")
+// const getAll = async() => {
+//   console.log("imprimiendo desde group, usecase dentro de getAll")
   
-  const groups = await Group.find({})
+//   const groups = await Group.find({})
   
-  return groups
+//   return groups
+// }
+
+
+// con populate
+function getAll() {
+  console.log("imprimiendo desde group, usecase dentro de getAll-populate")
+
+  return Group.find({}).populate('school').populate('students').populate('teachers')
 }
 
 
@@ -18,7 +27,7 @@ const getAll = async() => {
 const getById = async (id) => {
   console.log("imprimiendo desde group, usecase dentro de getById")
   
-  const groupById = await Group.findById(id)
+  const groupById = await Group.findById(id).populate('school').populate('students').populate('teachers')
   
   if(!groupById) {
     const error = createError(404, "El grupo no fue encontrado")
@@ -31,6 +40,7 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
+/*
 const create = async(newGroup) => {
     console.log("imprimiendo desde group, usecase dentro de Post")
 
@@ -38,6 +48,29 @@ const create = async(newGroup) => {
 
     return groupToCreate
   }
+*/
+
+// con poppulate
+const create = async(newGroup) => {
+  console.log("imprimiendo desde group, usecase dentro de Post")
+
+  const schoolFound = await School.findById(newGroup.school)
+
+  if(!schoolFound) {
+    const error = createError(404, "La escuela no fue encontrada")
+    throw error
+  }
+
+  const groupToCreate = await Group.create(newGroup)
+
+  await School.updateOne(
+    {_id: schoolFound._id},
+    {
+        $push: { groups: groupToCreate._id}
+    }
+  )
+  return groupToCreate
+}
 
 
 

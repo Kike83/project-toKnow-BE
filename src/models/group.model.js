@@ -19,15 +19,15 @@ const groupSchema = new mongoose.Schema({
         enum: ["2022-2023", "2023-2024"],
         required: true
     },
-    schoolId: [{
+    school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
-    }],
-    studentId: [{
+    },
+    students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
     }],
-    teacherId: [{
+    teachers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teachers'
     }]

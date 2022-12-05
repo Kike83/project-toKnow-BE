@@ -1,9 +1,11 @@
-
 const mongoose = require("mongoose")
 
 
 const userSchema = new mongoose.Schema({
-
+    name: {
+        type: String,
+        trim: true,
+    },
     email: {
         type: String,
         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
@@ -14,10 +16,15 @@ const userSchema = new mongoose.Schema({
         minlength: 3,
         required: true
     },
-    name: {
-        type: String
+    role: {
+        type: String,
+        enum: ['admin', 'teacher', 'parent'],
+        default: ['teacher']
+    },
+    school: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'schools'
     }
-
 })
 
 

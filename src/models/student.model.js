@@ -32,11 +32,11 @@ const studentSchema = new mongoose.Schema({
         max: 6,
         required: true
     },
-    groupId: [{
+    groups: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
     }],
-    parentId: [{
+    parents: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'parents'
     }]
