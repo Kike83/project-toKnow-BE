@@ -16,11 +16,13 @@ function getAll() {
 // Usecase 2 - GetById
 const getById = async (id) => {
   console.log("imrpimiendo desde parent.usecase dentro de getById")
-  const parentById = await Parent.findById(id)
+  const parentById = await Parent.findById(id).populate('students')
+
   if(!parentById) {
     const error = createError(404, "El padre/tutor no fue encontrado")
     throw error
   }
+  
   return parentById
 }
 

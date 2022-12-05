@@ -18,7 +18,7 @@ const getAll = () =>{
 
 
 const getById = async (id) =>{
-    const school = await School.findById(id)
+    const school = await School.findById(id).populate('groups')
     
     if(!school){
         const error = createError(404, "Escuela no encontrada")

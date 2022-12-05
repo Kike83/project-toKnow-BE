@@ -27,7 +27,7 @@ function getAll() {
 const getById = async (id) => {
   console.log("imprimiendo desde group, usecase dentro de getById")
   
-  const groupById = await Group.findById(id)
+  const groupById = await Group.findById(id).populate('school').populate('students').populate('teachers')
   
   if(!groupById) {
     const error = createError(404, "El grupo no fue encontrado")
