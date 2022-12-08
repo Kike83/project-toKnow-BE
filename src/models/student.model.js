@@ -26,12 +26,6 @@ const studentSchema = new mongoose.Schema({
     dateOfBirth: {
         type: Number
     },
-    grade: {
-        type: Number,
-        min: 1,
-        max: 6,
-        required: true
-    },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
