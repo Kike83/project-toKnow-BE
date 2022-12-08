@@ -41,11 +41,10 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         enum: ["titular", "educacion fisica", "ingles"]
     },
-    grade: {
-        type: Number,
-        min: 1,
-        max: 6,
-        required: true
+    role: {
+        type: String,
+        enum: ['admin', 'teacher', 'parent'],
+        default: ['teacher']
     },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -39,7 +39,6 @@ router.get("/:id", access('admin', 'teacher'), async (request, response) =>{
   const { id } = request.params
   try{
     const groupById = await getById(id)
-    
     response.json ({ 
       success: true,
       data:{
@@ -48,9 +47,7 @@ router.get("/:id", access('admin', 'teacher'), async (request, response) =>{
     })
   } catch(error){
     console.log("imprimiendo error", error)
-
     response.status(error.status || 500)
-    
     response.json({
       success:false,
         message: error.message
@@ -61,12 +58,14 @@ router.get("/:id", access('admin', 'teacher'), async (request, response) =>{
 
 
 // endpoint 3 - Post
+// con populate
 router.post("/", access('admin'), async (request, response) => {
   try {
-    const groupCreated = await create(request.body)
+    const userCurrent = request.userCurrent
+
+    const groupCreated = await create(request.body, userCurrent)
     
     response.status(201)
-
     response.json({
       success: true,
       data: { 
@@ -85,7 +84,6 @@ router.post("/", access('admin'), async (request, response) => {
     })
   }
 })
-
 
 
 // endpoint 4 - Update
@@ -110,7 +108,6 @@ router.patch("/:id", access('admin'), async (request, response) => {
     })
   }
 })
-
 
 
 // endpoint 5 - Delete
