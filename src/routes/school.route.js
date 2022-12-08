@@ -9,7 +9,7 @@ const {getAll, getById, create, update, remove} = require ("../usecases/school.u
 router.use(auth)
 
 
-
+// endpoint 1 - getAll
 router.get ("/", access('admin'), async (request, response)=>{
     try{
         const schools = await getAll()
@@ -28,6 +28,8 @@ router.get ("/", access('admin'), async (request, response)=>{
     }
 })
 
+
+// endpoint 2 - getById
 router.get ("/:id", access('admin'), async (request, response)=>{
     const {id} = request.params
     try{
@@ -47,10 +49,15 @@ router.get ("/:id", access('admin'), async (request, response)=>{
     }
 })
 
+
+// endpoint 3 - Post
+// con populate
 router.post("/", access('admin'), async (request, response) => {
     try{
-        const school = await create(request.body)
-        console.log(request.body)
+        const userCurrent = request.userCurrent
+
+        const school = await create(request.body, userCurrent)
+
         response.status(201)
         response.json({
             success: true, 
@@ -67,25 +74,8 @@ router.post("/", access('admin'), async (request, response) => {
     }
 })
 
-router.delete ("/:id", access('admin'), async (request, response)=>{
-    const {id} = request.params
-    try{
-        const post = await remove(id)
-        response.status(200)
-        response.json({
-            success:true,
-            message: "School was deleted"
-        })
 
-    }catch(error){
-        response.status(error.status || 500)
-        response.json({
-            success : false,
-            message: error.message
-        })
-    }
-})
-
+// endpoint 4 - Update
 router.patch ("/:id", access('admin'), async (request, response)=>{
     const {id} = request.params
     try{
@@ -105,5 +95,27 @@ router.patch ("/:id", access('admin'), async (request, response)=>{
         })
     }
 })
+
+
+// endpoint 5 - Delete
+router.delete ("/:id", access('admin'), async (request, response)=>{
+    const {id} = request.params
+    try{
+        const post = await remove(id)
+        response.status(200)
+        response.json({
+            success:true,
+            message: "School was deleted"
+        })
+
+    }catch(error){
+        response.status(error.status || 500)
+        response.json({
+            success : false,
+            message: error.message
+        })
+    }
+})
+
 
 module.exports = router
