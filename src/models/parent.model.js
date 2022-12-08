@@ -28,6 +28,11 @@ const parentSchema = new mongoose.Schema({
     phone: {
         type: Number
     },
+    role: {
+        type: String,
+        enum: ['admin', 'teacher', 'parent'],
+        default: ['teacher']
+    },
     students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
