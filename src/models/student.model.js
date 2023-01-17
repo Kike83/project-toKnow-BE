@@ -24,7 +24,7 @@ const studentSchema = new mongoose.Schema({
         type: String
     },
     dateOfBirth: {
-        type: Number
+        type: Date
     },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,
