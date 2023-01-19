@@ -31,6 +31,10 @@ const teacherSchema = new mongoose.Schema({
         match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
         unique: true
     },
+    password: {
+        type: String,
+        minlength: 3,
+    },
     phone: {
         type: Number
     },
