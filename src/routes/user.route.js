@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const { create, getById } = require("../usecases/user.usecase")
+const { create, getById, getAll } = require("../usecases/user.usecase")
 
 
 // endpoint 1 - Create para SignUp
@@ -47,6 +47,25 @@ router.get("/:id", async (request, response) =>{
     }
   })
 
+
+// endpoint 3 - getAll
+router.get ("/", async (request, response) => {
+  try{
+    const userAll = await getAll()
+    response.json({
+      success: true,
+      data:{
+        userAll
+      }
+    })
+  }catch(error){
+    response.status(error.status || 500)
+    response.json({
+      success: false,
+      message: error.message
+    })
+  }
+})
 
 
 module.exports = router
