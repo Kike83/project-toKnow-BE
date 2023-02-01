@@ -30,4 +30,12 @@ const getById = async (id) => {
 }
 
 
-module.exports = { create, getById }
+// Usecase 3 - getAll
+function getAll () {
+  console.log("imprimiendo desde user, usecase de getAll")
+
+  return User.find({})
+}
+
+
+module.exports = { create, getById, getAll }
