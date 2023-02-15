@@ -1,7 +1,7 @@
 const Parent = require ("../models/parent.model")
 const Student = require("../models/student.model")
 const createError = require('http-errors')
-
+const bcrypt = require("bcrypt")
 
   
 // Usecase 1 - GetAll
@@ -47,6 +47,9 @@ const create = async(newParent) => {
     const error = createError(404, "El estudiante no fue encontrado")
     throw error
   }
+
+  const hash = await bcrypt.hash(newParent.password, 10)
+  newParent.password = hash
 
   const parentToCreate = await Parent.create(newParent)
 
