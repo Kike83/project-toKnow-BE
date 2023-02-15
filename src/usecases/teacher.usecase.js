@@ -1,7 +1,7 @@
 const Teacher = require("../models/teacher.model")
 const Group = require("../models/group.model")
 const createError = require('http-errors')
-
+const bcrypt = require("bcrypt")
 
 
 
@@ -49,7 +49,10 @@ const create = async(newTeacher) => {
       const error = createError(404, "El grupo no fue encontrado")
       throw error
     }
-  
+
+    const hash = await bcrypt.hash(newTeacher.password, 10)
+    newTeacher.password = hash
+
     const teacherToCreate = await Teacher.create(newTeacher)
   
     await Group.updateOne(
