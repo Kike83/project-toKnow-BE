@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 
-const { loginAdmin, loginTeacher } = require("../usecases/auth.usecase")
+const { loginAdmin, loginTeacher, loginParent } = require("../usecases/auth.usecase")
 
 
 // endpoint - LoginAdmin
@@ -44,6 +44,26 @@ router.post("/teacher", async (request, response) => {
     }
 })
 
+
+// endpoint loginParent
+router.post("/parent", async (request, response) => {
+    try{
+        const {email, password, role} = request.body
+        const token = await loginParent(email, password, role)
+
+        response.json({
+            success: true,
+            message: "Has iniciado sesión correctamente",
+            token
+        })
+    }catch(error){
+        response.status(error.status || 500)
+        response.json({
+            success: false,
+            message: error.message
+        })
+    }
+})
 
 
 module.exports = router
