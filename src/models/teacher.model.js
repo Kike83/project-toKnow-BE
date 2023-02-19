@@ -54,9 +54,9 @@ const teacherSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
     }],
-    schoolId: {
+    school: {
         type: String           
-    },
+    }
 }, {
     timestamp: true
 })
