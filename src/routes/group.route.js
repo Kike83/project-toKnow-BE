@@ -11,7 +11,7 @@ router.use(auth)
 
 
 // endpoint 1 - getAll
-router.get("/", access('admin', 'teacher'), async (request, response) => {
+router.get("/", access('admin', 'teacher', 'parent'), async (request, response) => {
   try{
     const groups = await getAll();
     response.json({
@@ -35,7 +35,7 @@ router.get("/", access('admin', 'teacher'), async (request, response) => {
 
 
 // endpoint 2 - getById
-router.get("/:id", access('admin', 'teacher'), async (request, response) =>{
+router.get("/:id", access('admin', 'teacher', 'parent'), async (request, response) =>{
   const { id } = request.params
   try{
     const groupById = await getById(id)
