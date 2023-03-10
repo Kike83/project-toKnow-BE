@@ -9,7 +9,7 @@ const createError = require('http-errors')
 function getAll () {
     console.log("imprimiendo desde anuncios, usecase de getAll-populate")
 
-    return Announcement.find({}).populate('user').populate('school')
+    return Announcement.find({}).populate('school')
 }
 
 
@@ -21,7 +21,7 @@ const getById = async (id) => {
     const announcement = await Announcement.findById(id).populate('school')
 
     if(!announcement){
-        const error = createError(404, "anuncio no encontrado")
+        const error = createError(404, "Anuncio no encontrado")
         throw error
     }
     
@@ -31,18 +31,26 @@ const getById = async (id) => {
 
 // Usecase 3 - Post
 // con populate
-const create = async(newAnnouncement) => {
+const create = async(newAnnouncement, userCurrent) => {
     console.log("imprimiendo desde anuncios, usecase dentro de Post")
 
-    // const userFound = await User.findById(userCurrent)
+    const userFound = await User.findById(userCurrent)
 
-    // if(!userFound) {
-    //     const error = createError(404, "El usuario no fue encontrado")
-    //     throw error
-    // }
+    if(!userFound) {
+        const error = createError(404, "El usuario no fue encontrado")
+        throw error
+    }
 
-    const announcementToCreate = await Announcement.create({newAnnouncement})
+    const school = userFound.school
 
+    const announcementToCreate = await Announcement.create({...newAnnouncement, school})
+
+    await School.updateOne(
+        {_id: school},
+        {
+            $push: { announcements: newAnnouncement._id}
+        }
+    )
     return announcementToCreate
 }
 
