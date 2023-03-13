@@ -8,7 +8,7 @@ const createError = require ('http-errors')
 function getAll () {
     console.log("imprimiendo desde school, usecase de getAll-populate")
     
-   return School.find({}).populate('user').populate('groups')
+   return School.find({}).populate('user').populate('groups').populate('announcements')
 }
 
 
@@ -17,7 +17,7 @@ function getAll () {
 const getById = async (id) =>{
     console.log("imprimiendo desde school, usecase dentro de getById")
     
-    const school = await School.findById(id).populate('groups')
+    const school = await School.findById(id).populate('user').populate('groups').populate('announcements')
     
     if(!school){
         const error = createError(404, "Escuela no encontrada")
