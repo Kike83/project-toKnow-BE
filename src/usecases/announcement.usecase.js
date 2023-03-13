@@ -48,7 +48,7 @@ const create = async(newAnnouncement, userCurrent) => {
     await School.updateOne(
         {_id: school},
         {
-            $push: { announcements: newAnnouncement._id}
+            $push: { announcements: announcementToCreate._id}
         }
     )
     return announcementToCreate
