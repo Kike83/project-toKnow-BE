@@ -30,6 +30,10 @@ const groupSchema = new mongoose.Schema({
     teachers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teachers'
+    }],
+    announcements: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'announcements'
     }]
 }, {
     timestamp: true
