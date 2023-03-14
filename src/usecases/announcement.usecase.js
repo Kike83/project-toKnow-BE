@@ -9,7 +9,7 @@ const createError = require('http-errors')
 function getAll () {
     console.log("imprimiendo desde anuncios, usecase de getAll-populate")
 
-    return Announcement.find({}).populate('school').populate('user')
+    return Announcement.find({}).populate('school').populate('user').populate('group')
 }
 
 
@@ -18,7 +18,7 @@ function getAll () {
 const getById = async (id) => {
     console.log("imprimiendo desde anuncios, usecase dentro de getById")
 
-    const announcement = await Announcement.findById(id).populate('school').populate('user')
+    const announcement = await Announcement.findById(id).populate('school').populate('user').populate('group')
 
     if(!announcement){
         const error = createError(404, "Anuncio no encontrado")
