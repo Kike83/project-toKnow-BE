@@ -18,6 +18,10 @@ const announcementSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
     },
+    group: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'groups'
+    }
 }, {
     timestamp: true
 })
