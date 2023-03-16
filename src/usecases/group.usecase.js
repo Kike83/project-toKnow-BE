@@ -9,7 +9,7 @@ const User = require("../models/user.model")
 function getAll() {
   console.log("imprimiendo desde group, usecase dentro de getAll-populate")
 
-  return Group.find({}).populate('school').populate('students').populate('teachers').populate('announcements')
+  return Group.find({}).populate('school').populate('students').populate('teachers').populate('announcements').populate('replies')
 }
 
 
@@ -17,7 +17,7 @@ function getAll() {
 const getById = async (id) => {
   console.log("imprimiendo desde group, usecase dentro de getById")
   
-  const groupById = await Group.findById(id).populate('school').populate('students').populate('teachers').populate('announcements')
+  const groupById = await Group.findById(id).populate('school').populate('students').populate('teachers').populate('announcements').populate('replies')
   
   if(!groupById) {
     const error = createError(404, "El grupo no fue encontrado")

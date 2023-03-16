@@ -41,6 +41,10 @@ const schoolSchema = new mongoose.Schema({
     announcements: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'announcements'
+    }],
+    replies: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'replies'
     }]
 }, {
     timestamp: true
