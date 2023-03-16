@@ -1,6 +1,7 @@
 const Announcement = require("../models/announcement.model")
 const User = require("../models/user.model")
 const School = require("../models/school.model")
+const Group = require("../models/group.model")
 const createError = require('http-errors')
 
 
@@ -52,6 +53,20 @@ const create = async(newAnnouncement, userCurrent) => {
 
     await School.updateOne(
         {_id: school},
+        {
+            $push: { announcements: announcementToCreate._id}
+        }
+    )
+
+    const groupFound = await Group.findById(newAnnouncement.group)
+
+    if(!groupFound) {
+        const error = createError(404, "El grupo no fue encontrado")
+        throw error
+    }
+
+    await Group.updateOne(
+        {_id: groupFound._id},
         {
             $push: { announcements: announcementToCreate._id}
         }
