@@ -55,7 +55,9 @@ router.get("/:id", access('admin', 'teacher', 'parent'), async (request, respons
 // enpoint 3 - Post
 router.post("/", access('admin', 'teacher', 'parent'), async (request, response) => {
   try {
-    const replyCreated = await create(request.body);
+    const userCurrent = request.userCurrent
+
+    const replyCreated = await create(request.body, userCurrent);
 
     response.status(201)
 
