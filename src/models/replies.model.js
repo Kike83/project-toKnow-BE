@@ -1,13 +1,7 @@
 const mongoose = require("mongoose")
 
-const announcementSchema = new mongoose.Schema({
-    announcementTitle: {
-        type: String
-    },
-    announcementText: {
-        type: String
-    },
-    image: {
+const repliesSchema = new mongoose.Schema({
+    message: {
         type: String
     },
     user: {
@@ -22,14 +16,14 @@ const announcementSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
     },
-    replies: [{
+    announcement: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'replies'
-    }]
+        ref: 'announcements'
+    }
 }, {
     timestamp: true
 })
 
-const Announcement = mongoose.model('announcements', announcementSchema)
+const Reply = mongoose.model('replies', repliesSchema)
 
-module.exports = Announcement
+module.exports = Reply
