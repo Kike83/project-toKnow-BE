@@ -54,32 +54,30 @@ const create = async(newReply, userCurrent) => {
 
     const groupFound = await Group.findById(newReply.group)
 
-    if(!groupFound) {
-        const error = createError(404, "El grupo no fue encontrdo")
-        throw error
+    if(groupFound) {
+        await Group.updateOne(
+            {_id: groupFound._id},
+            {
+                $push: { replies: replyToCreate._id }
+            }
+        )
     }
-
-    await Group.updateOne(
-        {_id: groupFound._id},
-        {
-            $push: { replies: replyToCreate._id }
-        }
-    )
-
 
     const announcementFound = await Announcement.findById(newReply.announcement)
 
     if(!announcementFound) {
-        const error = createError(404, "El anuncio no fue encontrado")
-        throw error
+        console.log("reply enviado sin anuncio")
     }
 
-    await Announcement.updateOne(
-        {_id: announcementFound._id},
-        {
-            $push: { replies: replyToCreate._id}
-        }
-    )
+    if(announcementFound) {
+        await Announcement.updateOne(
+            {_id: announcementFound._id},
+            {
+                $push: { replies: replyToCreate._id}
+            }
+        )
+    }
+    
 
 
     return replyToCreate
