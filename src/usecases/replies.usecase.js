@@ -10,7 +10,7 @@ const createError = require('http-errors')
 function getAll () {
     console.log("imprimiendo desde replies, usecase de getAll")
 
-    return Reply.find({})
+    return Reply.find({}).populate('user').populate('school').populate('group').populate('announcement')
 }
 
 
@@ -18,7 +18,7 @@ function getAll () {
 const getById = async (id) => {
     console.log("imprimiendo desde replies, usecase dentro de getById")
 
-    const reply = await Reply.findById(id)
+    const reply = await Reply.findById(id).populate('user').populate('school').populate('group').populate('announcement')
 
     if(!reply){
         const error = createError(404, "Reply no encontrado")
