@@ -61,17 +61,18 @@ const create = async(newAnnouncement, userCurrent) => {
     const groupFound = await Group.findById(newAnnouncement.group)
 
     if(!groupFound) {
-        const error = createError(404, "El grupo no fue encontrado")
-        throw error
+        console.log("anuncio enviado sin grupo")
     }
 
-    await Group.updateOne(
-        {_id: groupFound._id},
-        {
-            $push: { announcements: announcementToCreate._id}
-        }
-    )
-
+    if(groupFound) {
+        await Group.updateOne(
+            {_id: groupFound._id},
+            {
+                $push: { announcements: announcementToCreate._id}
+            }
+        )
+    }
+    
     return announcementToCreate
 }
 
