@@ -4,7 +4,8 @@ const router = express.Router()
 const access = require("../middlewares/userRoles.middleware")
 const auth = require("../middlewares/auth.middleware")
 
-const { getAll, getById, create, update, remove } = require("../usecases/announcement.usecase")
+const { getAll, getById, create, update, remove, getBySchoolId, getByGroupId } = require("../usecases/announcement.usecase")
+const Announcement = require("../models/announcement.model")
 
 router.use(auth)
 
@@ -113,6 +114,58 @@ router.delete("/:id", access('admin'), async (request, response) => {
   } catch (error) {
     console.log("imprimiendo error", error)
     response.status(error.status || 400)
+    response.json({
+      success: false,
+      message: error.message
+    })
+  }
+})
+
+
+// endpoint 6 - get-By-School-Id
+router.get("/school/:id", access('admin', 'teacher', 'parent'), async (request, response) => {
+  
+  const { id } = request.params
+
+  console.log("imprimiendo el id:", id)
+
+  try {
+    const announcementsFound = await getBySchoolId(id);
+
+    response.json({
+      success: true,
+      data: {
+        announcementsFound
+      }
+    })
+  } catch (error) {
+    console.log("imprimiendo error", error)
+    response.status(error.status || 500)
+    response.json({
+      success: false,
+      message: error.message
+    })
+  }
+})
+
+
+// endpoint 7 - get-By-Group-Id
+router.get("/group/:id", access('admin', 'teacher', 'parent'), async (request, response) => {
+  
+  const { id } = request.params
+
+  try {
+    const announcementsFound = await getByGroupId(id);
+
+    response.json({
+      success: true,
+      data: {
+        announcementsFound
+      }
+    })
+  } catch (error) {
+    console.log("imprimiendo error", error)
+    response.status(error.status || 500)
     response.json({
       success: false,
       message: error.message

@@ -19,7 +19,7 @@ function getAll () {
 const getById = async (id) => {
     console.log("imprimiendo desde anuncios, usecase dentro de getById")
 
-    const announcement = await Announcement.findById(id).populate('school').populate('user').populate('group').populate('replies')
+    const announcement = await Announcement.findById(id).populate('school').populate('user').populate('group').populate('replies').populate('user')
 
     if(!announcement){
         const error = createError(404, "Anuncio no encontrado")
@@ -93,4 +93,29 @@ const remove = (id) => {
 }
 
 
-module.exports = { getAll, getById, create, update, remove }
+// Usecase 6 - get-By-School-Id
+const getBySchoolId = async(schoolId) => {
+    console.log("imprimiendo desde anuncios, usecase de get-By-School-Id")
+
+    const announcementFound = await Announcement.find({ school: schoolId, group: null })
+
+    return announcementFound
+}
+
+
+
+
+// Usecase 7 - get-By-Group-Id
+const getByGroupId = async(groupId) => {
+    console.log("imprimiendo desde anuncios, usecase de get-By-Group-Id")
+
+    const announcementFound = await Announcement.find({ group: groupId })
+
+    return announcementFound
+}
+
+
+
+
+
+module.exports = { getAll, getById, create, update, remove, getBySchoolId, getByGroupId }
