@@ -7,7 +7,8 @@ const jwt = require("../lib/jwt.lib")
 
 // login Admin
 async function loginAdmin(email, password) {
-    const userFound = await User.findOne({email})
+    const userFound = await User.findOne({email}).populate('school')
+    console.log("imprimiendo userFound:", userFound)
 
     if(!userFound) throw new Error('Credenciales invalidas', 400)
 
@@ -15,7 +16,7 @@ async function loginAdmin(email, password) {
 
     if(!isValidPassword) throw new Error('Credenciales invalidas', 400)
 
-    return jwt.sign({id: userFound._id, role: userFound.role})
+    return jwt.sign({id: userFound._id, role: userFound.role, schoolId: userFound.school._id})
 }
 
 
