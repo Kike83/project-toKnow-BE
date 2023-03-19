@@ -30,17 +30,8 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
-/*
-const create = async (teacherData) => {
-    console.log("imprimiendo desde teacher.usecase dentro de Post")
-    const teacherToCreate = await Teacher.create( teacherData )
-    return teacherToCreate
-}
-*/
-
-
 //con populate
-const create = async(newTeacher) => {
+const create = async(newTeacher, schoolId) => {
     console.log("imprimiendo desde teacher, usecase dentro de Post-populate")
   
     const groupFound = await Group.findById(newTeacher.groups)
@@ -53,7 +44,7 @@ const create = async(newTeacher) => {
     const hash = await bcrypt.hash(newTeacher.password, 10)
     newTeacher.password = hash
 
-    const teacherToCreate = await Teacher.create(newTeacher)
+    const teacherToCreate = await Teacher.create({...newTeacher, school: schoolId})
   
     await Group.updateOne(
       {_id: groupFound._id},

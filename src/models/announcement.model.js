@@ -14,6 +14,10 @@ const announcementSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    teacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'teachers'
+    },
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
@@ -25,7 +29,11 @@ const announcementSchema = new mongoose.Schema({
     replies: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'replies'
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: new Date()
+    }
 }, {
     timestamp: true
 })
