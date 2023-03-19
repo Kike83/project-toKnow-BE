@@ -12,6 +12,7 @@ const auth = (request, response, next) => {
         if(!verifiedToken) throw new Error("Error de autorización")
         request.userCurrent = verifiedToken.id
         request.roleCurrent = verifiedToken.role
+        request.school = verifiedToken.schoolId
 
         next()
     }catch(error) {
