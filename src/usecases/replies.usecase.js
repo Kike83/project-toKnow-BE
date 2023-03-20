@@ -37,17 +37,18 @@ const create = async(newReply, userCurrent, roleCurrent) => {
 
     const userFound = await User.findById(userCurrent)
     const teacherFound = await Teacher.findById(userCurrent)
+    const parentFound = await Parent.findById(userCurrent)
 
-    if(!userFound && !teacherFound) {
-        const error = createError(404, "El usuario o teacher no fue encontrado")
+    if(!userFound && !teacherFound && !parentFound) {
+        const error = createError(404, "El usuario, teacher, o parent no fue encontrado")
         throw error
     }
 
-    const school = userFound?.school || teacherFound?._id
+    const school = userFound?.school || teacherFound?._id || parentFound?._id
 
-    console.log("imprimiendo teacherFound:", teacherFound)
+    console.log("imprimiendo parentFound:", parentFound)
  
-    const replyToCreate = await Reply.create({...newReply, user: userFound?._id, school, teacher: teacherFound?._id})
+    const replyToCreate = await Reply.create({...newReply, user: userFound?._id, school, teacher: teacherFound?._id, parent: parentFound?._id})
 
     await School.updateOne(
         {_id: school},
