@@ -8,6 +8,14 @@ const repliesSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     },
+    teacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'teachers'
+    },
+    parent: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'parents'
+    },
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
@@ -19,6 +27,10 @@ const repliesSchema = new mongoose.Schema({
     announcement: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'announcements'
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
     }
 }, {
     timestamp: true

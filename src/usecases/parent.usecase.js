@@ -29,16 +29,8 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
-/*
-const create = async (parentData) => {
-  console.log("imprimiendo desde parent.usecase dentro de Post")
-  const parentToCreate = await Parent.create(parentData)
-  return parentToCreate
-}
-*/
-
 // con populate
-const create = async(newParent) => {
+const create = async(newParent, schoolId) => {
   console.log("imprimiendo desde parent, usecase dentro de Post-populate")
 
   const studentFound = await Student.findById(newParent.students)
@@ -51,7 +43,7 @@ const create = async(newParent) => {
   const hash = await bcrypt.hash(newParent.password, 10)
   newParent.password = hash
 
-  const parentToCreate = await Parent.create(newParent)
+  const parentToCreate = await Parent.create({...newParent, school: schoolId})
 
   await Student.updateOne(
     {_id: studentFound._id},

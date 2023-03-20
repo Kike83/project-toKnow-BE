@@ -58,7 +58,7 @@ router.get("/:id", access('admin', 'teacher'), async (request, response) =>{
 // endpoint 3 - Post
 router.post("/", access('admin'), async (request, response) => {
   try {
-    const parentCreated = await create(request.body)
+    const parentCreated = await create(request.body, request.school)
     response.status(201)
     response.json({
       success: true,
