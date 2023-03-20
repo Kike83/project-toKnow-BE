@@ -56,8 +56,9 @@ router.get("/:id", access('admin', 'teacher', 'parent'), async (request, respons
 router.post("/", access('admin', 'teacher', 'parent'), async (request, response) => {
   try {
     const userCurrent = request.userCurrent
+    const roleCurrent = request.roleCurrent
 
-    const replyCreated = await create(request.body, userCurrent);
+    const replyCreated = await create(request.body, userCurrent, roleCurrent);
 
     response.status(201)
 

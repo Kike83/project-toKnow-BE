@@ -40,7 +40,11 @@ const parentSchema = new mongoose.Schema({
     students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
-    }]
+    }],
+    school: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'schools'
+    }
 }, {
     timestamp: true
 })
