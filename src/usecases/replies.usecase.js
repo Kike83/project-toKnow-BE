@@ -3,6 +3,8 @@ const User = require("../models/user.model")
 const School = require("../models/school.model")
 const Group = require("../models/group.model")
 const Announcement = require("../models/announcement.model")
+const Teacher = require("../models/teacher.model")
+const Parent = require("../models/parent.model")
 const createError = require('http-errors')
 
 
@@ -30,19 +32,22 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
-const create = async(newReply, userCurrent) => {
+const create = async(newReply, userCurrent, roleCurrent) => {
     console.log("imprimiendo desde replies, usecase dentro de Post")
 
     const userFound = await User.findById(userCurrent)
+    const teacherFound = await Teacher.findById(userCurrent)
 
-    if(!userFound) {
-        const error = createError(404, "El usuario no fue encontrado")
+    if(!userFound && !teacherFound) {
+        const error = createError(404, "El usuario o teacher no fue encontrado")
         throw error
     }
 
-    const school = userFound.school
+    const school = userFound?.school || teacherFound?._id
 
-    const replyToCreate = await Reply.create({...newReply, user: userFound._id, school})
+    console.log("imprimiendo teacherFound:", teacherFound)
+ 
+    const replyToCreate = await Reply.create({...newReply, user: userFound?._id, school, teacher: teacherFound?._id})
 
     await School.updateOne(
         {_id: school},
