@@ -16,7 +16,7 @@ async function loginAdmin(email, password) {
 
     if(!isValidPassword) throw new Error('Credenciales invalidas', 400)
 
-    return jwt.sign({id: userFound._id, role: userFound.role, schoolId: userFound.school})
+    return jwt.sign({id: userFound._id, role: userFound.role, schoolId: userFound.school?._id})
 }
 
 
@@ -30,7 +30,7 @@ async function loginTeacher(email, password) {
 
     if(!isValidPassword) throw new Error("Credenciales invalidas para usuario de profesor", 400)
 
-    return jwt.sign({id: teacherFound._id, role: teacherFound.role})
+    return jwt.sign({id: teacherFound._id, role: teacherFound.role, schoolId: teacherFound.school?._id})
 }
 
 
@@ -44,7 +44,7 @@ async function loginParent(email, password) {
 
     if(!isValidPassword) throw new Error("Credenciales no validas para usuario de tutor-papá", 400)
 
-    return jwt.sign({id: parentFound._id, role: parentFound.role})
+    return jwt.sign({id: parentFound._id, role: parentFound.role, schoolId: parentFound.school?._id})
 }
 
 module.exports = { 
