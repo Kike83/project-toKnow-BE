@@ -16,7 +16,7 @@ async function loginAdmin(email, password) {
 
     if(!isValidPassword) throw new Error('Credenciales invalidas', 400)
 
-    return jwt.sign({id: userFound._id, role: userFound.role, schoolId: userFound.school?._id})
+    return jwt.sign({id: userFound._id, role: userFound.role, schoolId: userFound.school._id})
 }
 
 
