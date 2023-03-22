@@ -1,7 +1,7 @@
 const Group = require ("../models/group.model")
 const School = require ("../models/school.model")
-const createError = require('http-errors')
 const User = require("../models/user.model")
+const createError = require('http-errors')
 
 
 // Usecase 1 - GetAll
@@ -36,13 +36,22 @@ const create = async(newGroup, userCurrent) => {
 
   const userFound = await User.findById(userCurrent)
   
-    if(!userFound) {
-      const error = createError(404, "El usuario no fue encontrado")
-      throw error
-    }
+  if(!userFound) {
+    const error = createError(404, "El usuario no fue encontrado")
+    throw error
+  }
 
   const school = userFound.school
 
+  const groupFound = await Group.findOne({school: school, grade: newGroup.grade, name: newGroup.name, year: newGroup.year})
+
+  console.log("groupFound:", groupFound)
+
+  if(groupFound) {
+    const error = createError(400, "El grupo ya existe")
+    throw error
+  }
+  
   const groupToCreate = await Group.create({...newGroup, school})
 
   await School.updateOne(
