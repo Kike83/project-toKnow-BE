@@ -50,7 +50,7 @@ const create = async(newSchool, userCurrent) => {
     await User.updateOne(
       {_id: userFound._id},
       {
-          $push: { school: schoolToCreate._id}
+          school: schoolToCreate._id
       }
     )
     return schoolToCreate
