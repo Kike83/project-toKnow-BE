@@ -50,6 +50,9 @@ const teacherSchema = new mongoose.Schema({
         enum: ['admin', 'teacher', 'parent'],
         default: ['teacher']
     },
+    image: {
+        type: String,
+    },
     groups: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'

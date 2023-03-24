@@ -37,6 +37,9 @@ const parentSchema = new mongoose.Schema({
         enum: ['admin', 'teacher', 'parent'],
         default: ['teacher']
     },
+    image: {
+        type: String
+    },
     students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'students'
