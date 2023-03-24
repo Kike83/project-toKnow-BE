@@ -58,13 +58,8 @@ router.post("/", access('admin'), async (request, response) => {
     try{
         const userCurrent = request.userCurrent
         const roleCurrent = request.roleCurrent
-
         const school = await create(request.body, userCurrent)
-
         const newToken = jwt.sign({id: userCurrent, role: roleCurrent, schoolId: school._id})
-
-        console.log("imprimiendo schoolid:", school._id)
-
         response.status(201)
         response.json({
             success: true, 
