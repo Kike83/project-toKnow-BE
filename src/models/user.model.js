@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
         enum: ['admin', 'teacher', 'parent'],
         default: ['teacher']
     },
+    image: {
+        type: String
+    },
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
