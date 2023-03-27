@@ -47,7 +47,11 @@ const parentSchema = new mongoose.Schema({
     school: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'schools'
-    }
+    },
+    groups: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'groups'
+    }]
 }, {
     timestamp: true
 })
