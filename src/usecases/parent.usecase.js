@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt")
 function getAll() {
   console.log("imprimiendo desde parent, usecase dentro de getAll")
 
-  return Parent.find({}).populate('students').populate('school').populate('groups')
+  return Parent.find({}).populate('students').populate('groups')
 }
 
 
@@ -16,7 +16,7 @@ function getAll() {
 // Usecase 2 - GetById
 const getById = async (id) => {
   console.log("imrpimiendo desde parent.usecase dentro de getById")
-  const parentById = await Parent.findById(id).populate('students').populate('school').populate('groups')
+  const parentById = await Parent.findById(id).populate('students').populate('groups')
 
   if(!parentById) {
     const error = createError(404, "El padre/tutor no fue encontrado")
