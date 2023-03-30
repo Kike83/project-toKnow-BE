@@ -30,15 +30,6 @@ const getById = async (id) => {
 
 
 // Usecase 3 - Post
-/*
-const create = async (studentData) => {
-    console.log("imprimiendo desde student.usecase dentro del Post")
-    const studentToCreate = await Student.create( studentData )
-    return studentToCreate
-}
-*/
-
-
 //con populate
 const create = async(newStudent) => {
     console.log("imprimiendo desde student, usecase dentro de Post-populate")
@@ -75,10 +66,18 @@ const update = (id, studentData) => {
 
 
 // Usecase 5 - Delete
-const remove = (id) => {
+const remove = async(id) => {
+    console.log("imprimiendo desde student, usecase dentro de Delete")
+
     const studentToDelete = Student.findByIdAndDelete(id)
+
+    await Group.updateMany(
+        {},
+        { $pull: { students: id } }
+    );
+
     return studentToDelete
-    }
+}
 
 
 
