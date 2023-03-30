@@ -4,7 +4,7 @@ const router = express.Router()
 const access = require("../middlewares/userRoles.middleware")
 const auth = require("../middlewares/auth.middleware")
 
-const { getAll, getById, update, create, remove } = require("../usecases/group.usecase") 
+const { getAll, getById, update, create, remove, getBySchoolId } = require("../usecases/group.usecase") 
 
 router.use(auth)
 
@@ -132,5 +132,25 @@ router.delete("/:id", access('admin'), async (request, response) => {
   }
 })
 
+
+// endpoint 6 - get-Groups-by-SchoolId
+router.get("/school/:id", access('admin', 'teacher', 'parent'), async (request, response) => {
+  const { id } = request.params
+  try{
+    const groupsFound = await getBySchoolId(id);
+    response.json({
+      success: true,
+      data: {
+        groupsFound
+      }
+    })
+  }catch(eeror){
+    response.status(error.status || 500)
+    response.json({
+      success: false,
+      message: error.message
+    })
+  }
+})
 
 module.exports = router

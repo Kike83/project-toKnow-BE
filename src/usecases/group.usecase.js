@@ -82,6 +82,10 @@ const remove = (id) => {
 }
 
 
+// Usecase 6 - get-Groups-by-SchoolId
+const getBySchoolId = async(schoolId) => {
+  const groupFound = await Group.find({ school: schoolId})
+  return groupFound
+}
 
-
-module.exports = { getAll, getById, create, update, remove }
+module.exports = { getAll, getById, create, update, remove, getBySchoolId }
