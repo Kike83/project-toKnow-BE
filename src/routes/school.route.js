@@ -32,7 +32,7 @@ router.get ("/", access('admin'), async (request, response)=>{
 
 
 // endpoint 2 - getById
-router.get ("/:id", access('admin'), async (request, response)=>{
+router.get ("/:id", access('admin', 'teacher', 'parent'), async (request, response)=>{
     const {id} = request.params
     try{
         const school = await getById(id)
