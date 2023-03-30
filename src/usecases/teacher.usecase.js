@@ -67,8 +67,14 @@ const update = (id, teacherData) => {
 
 
 // Usecase 5 - Delete
-const remove = (id) => {
+const remove = async(id) => {
     const teacherToDelete = Teacher.findByIdAndDelete(id)
+
+    await Group.updateMany(
+        {},
+        { $pull: { teachers: id } }
+    )
+
     return teacherToDelete
     }
 
