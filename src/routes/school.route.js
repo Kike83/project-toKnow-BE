@@ -12,7 +12,7 @@ router.use(auth)
 
 
 // endpoint 1 - getAll
-router.get ("/", access('admin', 'teacher', 'parent'), async (request, response)=>{
+router.get ("/", access('admin'), async (request, response)=>{
     try{
         const schools = await getAll()
         response.json({
