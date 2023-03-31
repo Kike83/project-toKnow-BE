@@ -41,6 +41,16 @@ const create = async(newTeacher, schoolId) => {
       throw error
     }
 
+    const teacherFound = await Teacher.findOne({ school: schoolId, groups: newTeacher.groups, tipoProfesor: newTeacher.tipoProfesor})
+
+    console.log("teacherFound:", teacherFound)
+
+    if(teacherFound) {
+        const error = createError(400, "Ya existe este tipo de profesor en el grupo")
+        throw error
+    }
+
+
     const hash = await bcrypt.hash(newTeacher.password, 10)
     newTeacher.password = hash
 
